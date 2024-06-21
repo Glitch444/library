@@ -1,0 +1,17 @@
+h1{
+    text-align: center;
+}
+
+button {
+   
+    display: block;
+    margin: auto;
+
+    border-radius: 5px;
+    padding: 10px 50px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}

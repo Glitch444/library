@@ -6,50 +6,76 @@ const newBookTitle = document.getElementById("title");
 const newBookAuthor = document.getElementById("author"); 
 
 
-
-newBookBtn.addEventListener("click", () => {
+newBookBtn.addEventListener("click", showHide);
+function showHide() {
     if (newBookForm.style.visibility === "hidden"){
         newBookForm.style.visibility = "visible";
     }
     else {
         newBookForm.style.visibility = "hidden";
-        
     }
-});
+};
 
 
+let myLibrary = JSON.parse(localStorage.getItem("myLibrary")) || [];
 
 function Book(name, author) {
     this.name = name;
     this.author = author;
+    this.id = generateUniqueID();
 }
 
-
-const catch22 = new Book ("Catch 22", "Joseph Heller");
-const behave = new Book ("Behave: The Biology of Humans at Our Best and Worst", "Robert Sapolsky");
-const theStranger = new Book ("The stranger", "Albert Camus");
+function generateUniqueID() {
+    return "id-" + Date.now() + "-" + Math.floor(Math.random()*1000);
+}
 
 
 AddNewBookBtn.addEventListener("click", addBookToLibrary);
 
-function addBookToLibrary (event){
+function addBookToLibrary(event) {
     event.preventDefault();
-    let newBook = new Book (newBookTitle.value, newBookAuthor.value);
+    let newBook = new Book (newBookTitle.value, newBookAuthor.value);  
     myLibrary.push(newBook);
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+    
     displayBook(newBook);
+
     newBookTitle.value = "";
     newBookAuthor.value = "";
-
-    console.log(myLibrary);
 }
 
-
-const myLibrary = [catch22, behave, theStranger];
 
 myLibrary.forEach(displayBook);
     
-function displayBook (book){
+function displayBook(book) {
+    const newDiv = document.createElement("div");
+    const newBtn = document.createElement("button");
     const newPara = document.createElement("p");
-    document.body.appendChild(newPara);
+
+    newDiv.classList.add("displayed-item");
+
+    newDiv.setAttribute("data-id", book.id);
+    
+    newBtn.classList.add("displayed-item-btn");
+
+    newBtn.addEventListener("click", function () {
+        removeBook(newDiv, book.id);
+    });
+
+    newDiv.appendChild(newBtn);
+    newDiv.appendChild(newPara);
+    document.body.appendChild(newDiv);
+
     newPara.textContent = `${book.name}, ${book.author}`;
+    newBtn.textContent = " X ";
+
 }
+
+
+function removeBook(newDiv, bookId){
+    newDiv.remove();
+    myLibrary = myLibrary.filter(book => book.id != bookId);
+    localStorage.setItem("myLibrary", JSON.stringify(myLibrary));
+
+}
+

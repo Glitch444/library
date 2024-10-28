@@ -1,17 +1,68 @@
-h1{
-    text-align: center;
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
 }
+body {
+    max-width: 100dvw;
+}
+
+.parent-container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+
+
+
+h1 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+
+
+
 
 #new-book-btn,
-#add-new-book-btn{
-   
-    display: block;
+#add-btn {
+   /* display: block --> makes the element take up full width available. Useful for centering */
+    display: block; 
     margin: auto;
 
+    font-size: 18px;;
+
+    background-color: hsl(0, 0%, 90%);
+    border: 1px solid hsl(0, 0%, 70%);
     border-radius: 5px;
     padding: 10px 50px;
+
+    transition: background-color 1s ease-out 0.25s;
 }
 
+#add-btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#new-book-btn:hover,
+#add-btn:hover {
+    background-color: black;
+    cursor: pointer;
+    color: white
+}
+#new-book-btn:active,
+#add-btn:active { 
+    text-decoration: underline;
+}
+
+
+
+
+#new-book-form {
+    visibility: hidden;
+    
+}
 form {
     display: flex;
     flex-direction: column;
@@ -21,11 +72,33 @@ form {
 
 .displayed-item {
     display: flex;
-    gap: 20px;
+    align-items: center;
+
+ 
     border: solid 1px red;
 }
 
-.displayed-item-btn {
-    border-radius: 5px;
-    border: solid 1px red;
+.displayed-item p {
+    margin-left: 10px;
+    font-size: 18px
+}
+
+.displayed-item input{
+    font-size: 18px;
+}
+
+
+.displayed-item button {
+    font-size: 18px;
+
+    background-color: hsl(0, 0%, 90%);
+    border: 1px solid hsl(0, 0%, 70%);
+    padding: 5px 20px;
+    transition: background-color 1s ease-out 0.25s;
+}
+
+.displayed-item button:hover{
+    background-color: black;
+    cursor: pointer;
+    color: white
 }
